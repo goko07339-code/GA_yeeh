@@ -4,17 +4,33 @@ const O = [6, 5, 1, 0, 3, 2, 4];
 const I = 120000;
 let cache;
 const b = s => Uint8Array.from(s, c => c.charCodeAt(0));
+const V = String(Date.now()).slice(0, 7);            // evita cache vecchie su mobile (cambia ~ogni 2.8 ore)
+async function decrypt(d) {
+  const km = await crypto.subtle.importKey('raw', b(O.map(i => P[i]).join('')), 'PBKDF2', false, ['deriveKey']);
+  const k = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: d.subarray(0, 16), iterations: I, hash: 'SHA-256' }, km, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+  const p = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: d.subarray(16, 28), additionalData: b('AG1') }, k, d.subarray(28));
+  return JSON.parse(new TextDecoder().decode(p));
+}
+// 1) file binario dedicato (nessun proxy/ottimizzatore mobile lo tocca)  2) coda del PNG (metodo originale)
+async function fromBin() {
+  const r = await fetch(new URL('../data/app.bin?v=' + V, import.meta.url), { cache: 'no-cache' });
+  if (!r.ok) throw new Error('bin ' + r.status);
+  return decrypt(new Uint8Array(await r.arrayBuffer()));
+}
+async function fromPng() {
+  const r = await fetch(new URL('../img/noise.png?v=' + V, import.meta.url), { cache: 'no-cache' });
+  if (!r.ok) throw new Error('png ' + r.status);
+  const u = new Uint8Array(await r.arrayBuffer());
+  const n = new DataView(u.buffer).getUint32(u.length - 4);
+  if (!n || n > u.length) throw new Error('png trailer mancante (immagine ricompressa?)');
+  return decrypt(u.subarray(u.length - 4 - n, u.length - 4));
+}
 async function open() {
-  try {
-    const r = await fetch(new URL('../img/noise.png', import.meta.url));
-    const u = new Uint8Array(await r.arrayBuffer());
-    const n = new DataView(u.buffer).getUint32(u.length - 4);
-    if (!n || n > u.length) throw 0;
-    const d = u.subarray(u.length - 4 - n, u.length - 4);
-    const km = await crypto.subtle.importKey('raw', b(O.map(i => P[i]).join('')), 'PBKDF2', false, ['deriveKey']);
-    const k = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt: d.subarray(0, 16), iterations: I, hash: 'SHA-256' }, km, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
-    const p = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: d.subarray(16, 28), additionalData: b('AG1') }, k, d.subarray(28));
-    return JSON.parse(new TextDecoder().decode(p));
-  } catch (e) { console.error('[AG] configurazione non disponibile'); return {}; }
+  if (!globalThis.crypto || !crypto.subtle) { console.error('[AG] crypto.subtle non disponibile (serve HTTPS)'); return {}; }
+  for (const f of [fromBin, fromPng]) {
+    try { return await f(); } catch (e) { console.warn('[AG] sorgente config fallita:', e && e.message || e); }
+  }
+  console.error('[AG] configurazione non disponibile');
+  return {};
 }
 export const loadConfig = () => (cache ||= open());
