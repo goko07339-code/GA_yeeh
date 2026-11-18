@@ -39,4 +39,10 @@ services:
         value: "no-store"
       - path: /assets/*
         name: Cache-Control
-        value: "public, max-age=604800"
+        value: "public, max-age=3600"
+      - path: /assets/data/*
+        name: Cache-Control
+        value: "no-cache"
+      - path: /assets/js/secure-config.js
+        name: Cache-Control
+        value: "no-cache"
