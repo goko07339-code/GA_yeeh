@@ -1,0 +1,37 @@
+
+:root {
+  --ag-red: #ed101d;
+  --ag-gold: #c8a96a;
+  --bg-body: #f8f6f2;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #f1efe9;
+  --text-primary: #171717;
+  --text-secondary: #5f5b56;
+  --border-color: rgba(0,0,0,0.1);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+}
+[data-theme="dark"] {
+  --bg-body: #0a0a0a;
+  --bg-surface: #161616;
+  --bg-surface-hover: #222222;
+  --text-primary: #f4f4f4;
+  --text-secondary: #a3a3a3;
+  --border-color: rgba(255,255,255,0.12);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.5);
+}
+[dir="rtl"] {
+  --font-heading: 'Cairo', sans-serif;
+  --font-body: 'Cairo', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background-color: var(--bg-body);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  transition: background-color 0.3s, color 0.3s;
+  -webkit-font-smoothing: antialiased;
+}
