@@ -1,0 +1,156 @@
+/* =====================================================================
+   AUTO GRANATO — Responsive + RTL (arabo) — caricato DOPO main.css
+   ===================================================================== */
+
+/* ---------- Base robusta su tutti i dispositivi ---------- */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;overflow-x:clip;scroll-padding-top:84px}
+body{overflow-x:clip;min-width:320px;-webkit-tap-highlight-color:transparent;text-rendering:optimizeLegibility}
+img,svg,video,iframe{max-width:100%}
+h1,h2,h3,p,.chips span,.detail div{overflow-wrap:anywhere}
+.wrap{width:min(1240px,calc(100% - 2*clamp(18px,4vw,48px)));padding-inline:env(safe-area-inset-left) env(safe-area-inset-right)}
+header{padding-top:env(safe-area-inset-top)}
+.fab{bottom:max(22px,env(safe-area-inset-bottom));inset-inline-end:max(22px,env(safe-area-inset-right))}
+.hero{min-height:100vh;min-height:100svh}
+.modal-box,.req-box{max-height:92vh;max-height:92dvh}
+.hp{inset-inline-start:-9999px!important}
+.pick label{position:relative}
+.skip{inset-inline-start:12px}
+
+/* Griglie che non sforano mai su schermi stretti (prima: minmax(340px) > 324px => scroll orizzontale) */
+.cars-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr))}
+.review-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr))}
+.row{grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr))}
+
+/* Schermi molto grandi */
+@media(min-width:1600px){
+  .wrap{width:min(1440px,calc(100% - 96px))}
+  .hero-copy{font-size:20px;max-width:600px}
+  .cars-grid{grid-template-columns:repeat(auto-fill,minmax(360px,1fr))}
+}
+@media(min-width:2200px){html{font-size:112.5%}.wrap{width:min(1700px,calc(100% - 160px))}}
+
+/* Tablet (601–900) */
+@media(max-width:900px){
+  .hero{padding-top:100px}
+  .hero-content{max-width:100%}
+  .stats{margin-top:44px}
+  .stats b{font-size:clamp(28px,6vw,40px)}
+  .feature-image{aspect-ratio:16/11}
+  .map,.map iframe,.map-load{min-height:340px}
+  .navlinks{top:calc(72px + env(safe-area-inset-top));max-height:calc(100vh - 72px);max-height:calc(100dvh - 72px);overflow-y:auto;inset-inline:0}
+  .navlinks a{font-size:16px;min-height:48px;display:flex;align-items:center}
+  .theme-toggle,.language-select,.menu{min-height:40px;min-width:40px;font-size:16px}  /* 16px: evita lo zoom automatico di iOS */
+  .modal{padding:12px;align-items:flex-end}
+  .modal-box,.req-box{border-radius:20px 20px 12px 12px}
+  .modal-gallery>img{aspect-ratio:16/11}
+  .modal-body,.req-main,.req-done{padding:24px 20px}
+  .card-form{padding:24px 18px}
+  .section-head{gap:14px;margin-bottom:30px}
+}
+
+/* Telefoni (≤600) */
+@media(max-width:600px){
+  section{padding:64px 0}
+  .hero h1{font-size:clamp(40px,12.5vw,64px)}
+  .hero-copy{font-size:16px}
+  .hero-actions{gap:18px}
+  .hero-actions .hero-btn{width:100%;text-align:center}
+  .stats{grid-template-columns:1fr 1fr;gap:0 16px}
+  .stats>div{padding:18px 0}
+  .stats span{font-size:11px;letter-spacing:1px}
+  .values{grid-template-columns:1fr;gap:18px}
+  .specs{grid-template-columns:1fr 1fr;gap:8px}
+  .car-info{padding:18px}
+  .filters{flex-wrap:nowrap;overflow-x:auto;margin-inline:calc(-1*clamp(18px,4vw,48px));padding:2px clamp(18px,4vw,48px) 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch;scroll-snap-type:x proximity;scroll-padding-inline:clamp(18px,4vw,48px)}
+  .filters::-webkit-scrollbar{display:none}
+  .filter{flex:none;scroll-snap-align:start;padding:10px 18px;min-height:42px}
+  .row.end .hero-btn,.row.end .outline{flex:1 1 100%;text-align:center}
+  .foot{flex-direction:column;align-items:flex-start;text-align:start}
+  .review{padding:26px 20px 20px}
+  .avg{font-size:52px}
+  .title-row{display:flex;flex-direction:column;gap:6px}
+  .title-row h2{font-size:26px}
+  .req-summary{padding:64px 18px 14px;gap:0}
+  .req-summary .kicker,.req-summary .steps,.req-car .rc-img{display:none}
+  .req-car{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;padding:12px 14px}
+  .req-car h3{padding:0;font-size:18px;flex:1 1 100%}
+  .req-car .chips{padding:0;flex:1 1 100%}
+  .rc-price{padding:0;font-size:20px}
+  .modal-close{top:10px;width:44px;height:44px}
+}
+
+/* Telefoni stretti (≤400) */
+@media(max-width:400px){
+  .nav{gap:8px}
+  .navright{gap:6px}
+  .brand img{width:clamp(96px,30vw,140px)}
+  .theme-toggle,.language-select,.menu{padding:6px 8px;min-width:38px}
+  .kicker{letter-spacing:1px}
+}
+
+/* Orientamento orizzontale basso (telefono in landscape) */
+@media(max-height:480px) and (orientation:landscape){
+  .hero{min-height:auto;padding-bottom:20px}
+  .hero h1{font-size:clamp(34px,7vw,54px);margin:12px 0}
+  .stats{margin-top:20px}
+  .modal{align-items:center}
+}
+
+/* Touch: niente hover "appiccicoso" */
+@media(hover:none){
+  .car-card:hover{transform:none;box-shadow:var(--shadow-sm);border-color:var(--border-color)}
+  .car-card:hover .car-img img{transform:none}
+  .review:hover{transform:none}
+}
+
+/* =====================================================================
+   ARABO / RTL — il vero motivo per cui la pagina "si rompeva"
+   ===================================================================== */
+/* 1) Le lettere arabe sono CONNESSE: letter-spacing e maiuscolo le spezzano. */
+:lang(ar),:lang(ar) *{letter-spacing:0!important;text-transform:none!important}
+/* 2) Il corsivo non esiste nella scrittura araba: sfalsa i titoli. */
+:lang(ar) em,:lang(ar) i{font-style:normal}
+:lang(ar) .hero h1 em,:lang(ar) .section-title em{font-style:normal}
+/* 3) Cairo ha x-height bassa e segni sopra/sotto: serve più interlinea e peso corretto. */
+:lang(ar) body{line-height:1.8;font-size:1.04rem}
+:lang(ar) .hero h1{font-size:clamp(38px,6vw,74px);line-height:1.3;margin:16px 0;font-weight:700}
+:lang(ar) .section-title,:lang(ar) .car-info h3,:lang(ar) .card-form h3,:lang(ar) .title-row h2,:lang(ar) .req-car h3{line-height:1.4;font-weight:700}
+:lang(ar) .stats b,:lang(ar) .badge b,:lang(ar) .avg{font-weight:700;line-height:1.2}
+:lang(ar) .hero-copy,:lang(ar) .section-desc,:lang(ar) .modal-body p,:lang(ar) .review p{line-height:2}
+:lang(ar) .kicker,:lang(ar) .eyebrow,:lang(ar) .stats span,:lang(ar) .badge span,:lang(ar) .specs small,:lang(ar) .tag{font-size:13px;font-weight:600}
+:lang(ar) .navlinks a,:lang(ar) .filter,:lang(ar) .hero-btn,:lang(ar) .outline{font-weight:600}
+/* 4) Numeri, prezzi, km, email e telefoni restano LTR e non si "rimescolano" nel testo arabo. */
+.price,.rc-price,#modalPrice,.chips span,.specs div,.avg,.stats b,.ref b,.badge b{unicode-bidi:isolate}
+.price,.rc-price,#modalPrice,.avg,.stats b,.badge b{direction:ltr;text-align:start}
+[dir=rtl] .price,[dir=rtl] .rc-price,[dir=rtl] #modalPrice,[dir=rtl] .stats b{text-align:right}
+.chips span{direction:ltr}
+[dir=rtl] input[type=email],[dir=rtl] input[type=tel],[dir=rtl] input[type=url]{direction:ltr;text-align:right}
+[dir=rtl] input[type=email]::placeholder,[dir=rtl] input[type=tel]::placeholder{direction:rtl;text-align:right}
+/* 5) Allineamenti e frecce */
+[dir=rtl] .section-head,[dir=rtl] .nav,[dir=rtl] .foot,[dir=rtl] .hero-actions{direction:rtl}
+[dir=rtl] .center{text-align:center}
+[dir=rtl] .navlinks a::after{transform-origin:right}
+[dir=rtl] .eyebrow::before{margin-inline-end:14px}
+[dir=rtl] .tag{inset-inline-start:14px}
+[dir=rtl] .req-box,[dir=rtl] .modal-box{direction:rtl}
+[dir=rtl] .steps li{flex-direction:row}
+[dir=rtl] .consent{flex-direction:row}
+[dir=rtl] .review .qmark{transform:scaleX(-1)}
+[dir=rtl] .card-form textarea,[dir=rtl] .req-form textarea{text-align:right}
+[dir=rtl] select{background-position:left 12px center;padding-inline:12px 30px}
+[dir=rtl] .language-select{text-align:center;text-align-last:center}
+[dir=rtl] .progress{left:auto;right:0;background:linear-gradient(270deg,var(--ag-red),var(--ag-gold))}
+[dir=rtl] .hero-photo{transform-origin:center}
+/* Testi inseriti dagli utenti (recensioni, descrizioni): direzione automatica per lingua del contenuto */
+.review p,.review strong,#modalDesc{unicode-bidi:plaintext}
+/* Mobile + arabo */
+@media(max-width:600px){
+  :lang(ar) .hero h1{font-size:clamp(34px,10.5vw,52px)}
+  :lang(ar) .section-title{font-size:clamp(28px,8vw,40px)}
+  :lang(ar) .stats span{font-size:12px}
+  [dir=rtl] .filters{direction:rtl}
+  [dir=rtl] .hero-actions{align-items:stretch}
+}
+@media(max-width:900px){
+  [dir=rtl] .navlinks{direction:rtl;text-align:right}
+}
